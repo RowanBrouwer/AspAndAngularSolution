@@ -8,7 +8,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 /** Quiz component*/
 export class QuizComponent {
-  public question: Question = null;
+  public question: Question;
   public max: number = 0;
   private questionNr:number = 1;
   private baseUrl: string;
@@ -22,39 +22,37 @@ export class QuizComponent {
     }, error => console.error(error));
   }
 
-  GetNextQuestion() {
-    let callResult = this.http.get<Question>(this.baseUrl + 'api/Question/GetNextQuestion/Id', { params: new HttpParams().set( 'Id', this.questionNr.toString() ) }).subscribe(result => {
-      this.question = result;
+  GetNextQuestion(): void {
+    this.http.get<Question>(`${this.baseUrl}api/Question/GetNextQuestion/Id`, { params: new HttpParams().set('Id', this.questionNr.toString()) }).subscribe(data => {
+      this.question = data, console.log(data);
     }, error => console.error(error));
-    this.questionNr++;
-    return callResult;
   }
 
   ngOnInit() {
     this.GetMaximumQuestions();
     this.GetNextQuestion();
   }
-
- }
-
-interface Question {
-  Id: number;
-  ActualQuestion: string;
-  Awnsers: Awnser[];
-  CorrectAwnser: Awnser;
-  Chapter: ChapterEnum
 }
 
-interface Awnser {
-  Id: number;
-  ActualAwnser: string;
-}
 
-enum ChapterEnum {
+export interface Awnser {
+  Id: Number;
+  ActualAwnser: String;
+};
+
+export enum ChapterEnum {
   Azure_Core_Concepts,
   Azure_Core_Services,
   Azure_Core_Solutions_and_Management_tools,
   General_Security_and_Network_security,
   Identity_Governance_Privacy_and_Compliance_Features,
   Azure_Cost_Management_and_service_Level_Agreements
-}
+};
+
+export interface Question {
+  Id: Number;
+  ActualQuestion: String;
+  Awnsers: Awnser[];
+  CorrectAwnser: Awnser;
+  Chapter: ChapterEnum
+};

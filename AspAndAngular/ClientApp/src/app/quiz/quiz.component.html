@@ -1,8 +1,17 @@
+<html>
+<body>
+  <div>
+    <div *ngIf="max">
+      {{max}}
+    </div>
 
-<div *ngIf="max">
-  {{max}}
-</div>
-
-<div *ngIf="question">
-  {{ question }}
-</div>
+    <div *ngIf="question">
+      <span> {{question.id}}</span>
+      <span> {{question.actualQuestion}}</span>
+      <div *ngFor="let awnser of question.answers">
+        <button> {{awnser.actualAnswer}}</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
