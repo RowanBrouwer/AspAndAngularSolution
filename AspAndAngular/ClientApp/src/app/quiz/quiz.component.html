@@ -1,15 +1,16 @@
-<html>
+<html lang="en">
 <body>
   <div>
-    <div *ngIf="max">
-      {{max}}
-    </div>
-
-    <div *ngIf="question">
-      <span> {{question.id}}</span>
-      <span> {{question.actualQuestion}}</span>
+    <div class="questionCard" *ngIf="question">
+      <div class="questionText"> {{question.id}}: {{question.actualQuestion}}</div>
       <div *ngFor="let awnser of question.answers">
-        <button> {{awnser.actualAnswer}}</button>
+        <button *ngIf="question.correctAwnser" (click)="CheckAwnser(awnser, question.correctAwnser)"> {{awnser.actualAnswer}}</button>
+      </div>
+      <div class="correct" *ngIf="correct === true">
+        Correct!
+      </div>
+      <div class="inCorrect" *ngIf="correct === false">
+        inCorrect!
       </div>
     </div>
   </div>

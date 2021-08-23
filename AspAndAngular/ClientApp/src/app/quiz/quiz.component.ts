@@ -12,6 +12,8 @@ export class QuizComponent {
   public max: number = 0;
   private questionNr:number = 1;
   private baseUrl: string;
+  public correct: boolean = null;
+  public lastQuestion: boolean = false;
   constructor(protected http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
   }
@@ -22,15 +24,36 @@ export class QuizComponent {
     }, error => console.error(error));
   }
 
-  GetNextQuestion(): void {
+  GetFirstQuestion(): void {
     this.http.get<Question>(`${this.baseUrl}api/Question/GetNextQuestion/Id`, { params: new HttpParams().set('Id', this.questionNr.toString()) }).subscribe(data => {
       this.question = data, console.log(data);
     }, error => console.error(error));
   }
 
+  GetNextQuestion(): void {
+    if (this.question.Id <= this.max) {
+    this.correct = null;
+    this.http.get<Question>(`${this.baseUrl}api/Question/GetNextQuestion/Id`, { params: new HttpParams().set('Id', this.questionNr.toString()) }).subscribe(data => {
+      this.question = data, console.log(data);
+    }, error => console.error(error));
+    }
+    else {
+      this.lastQuestion = true;
+    }
+  }
+
+  CheckAwnser(awnser: Awnser, correctAwnser: Awnser) {
+    if (awnser.Id === correctAwnser.Id) {
+      this.correct = true;
+    }
+    else {
+      this.correct = false;
+    }
+  }
+
   ngOnInit() {
     this.GetMaximumQuestions();
-    this.GetNextQuestion();
+    this.GetFirstQuestion();
   }
 }
 
