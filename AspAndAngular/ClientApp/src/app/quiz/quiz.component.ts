@@ -42,18 +42,19 @@ export class QuizComponent {
     }
   }
 
-  CheckAwnser(awnser: Awnser, correctAwnser: Awnser) {
-    if (awnser.Id === correctAwnser.Id) {
+  ngOnInit() {
+    this.GetMaximumQuestions();
+    this.GetFirstQuestion();
+  }
+
+  CheckAwnser(awnser: Awnser, correctAwnser: number) {
+    console.log(awnser ,correctAwnser);
+    if (awnser.Id === correctAwnser) {
       this.correct = true;
     }
     else {
       this.correct = false;
     }
-  }
-
-  ngOnInit() {
-    this.GetMaximumQuestions();
-    this.GetFirstQuestion();
   }
 }
 
@@ -77,5 +78,5 @@ export interface Question {
   ActualQuestion: String;
   Awnsers: Awnser[];
   CorrectAwnser: Awnser;
-  Chapter: ChapterEnum
+  Chapter: ChapterEnum;
 };

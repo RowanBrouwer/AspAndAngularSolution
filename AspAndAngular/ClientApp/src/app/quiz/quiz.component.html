@@ -4,7 +4,7 @@
     <div class="questionCard" *ngIf="question">
       <div class="questionText"> {{question.id}}: {{question.actualQuestion}}</div>
       <div *ngFor="let awnser of question.answers">
-        <button *ngIf="question.correctAwnser" (click)="CheckAwnser(awnser, question.correctAwnser)"> {{awnser.actualAnswer}}</button>
+          <button (click)="CheckAwnser(awnser,  question.correctAwnser.id)"> {{awnser.actualAnswer}}</button>
       </div>
       <div class="correct" *ngIf="correct === true">
         Correct!
