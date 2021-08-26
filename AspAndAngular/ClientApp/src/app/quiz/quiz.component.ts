@@ -28,20 +28,19 @@ export class QuizComponent {
 
   GetFirstQuestion(): void {
     this.http.get<Question>(`${this.baseUrl}api/Question/GetNextQuestion/Id`, { params: new HttpParams().set('Id', this.questionNr.toString()) }).subscribe(data => {
-      this.question = data, console.log(data);
+      this.question = data;
     }, error => console.error(error));
   }
 
   GetNextQuestion(): void { 
     this.correct = null;
     this.http.get<Question>(`${this.baseUrl}api/Question/GetNextQuestion/Id`, { params: new HttpParams().set('Id', this.questionNr.toString()) }).subscribe(data => {
-      this.question = data, console.log(data);
+      this.question = data;
     }, error => console.error(error));
       this.deactivate = false;
   }
 
   CheckAwnser(awnser: Awnser) {
-    console.log(awnser, this.question.correctAnswer);
     if (awnser.id === this.question.correctAnswer.id) {
       this.correct = true;
       this.deactivate = true;
@@ -59,6 +58,7 @@ export class QuizComponent {
   CheckIfLastQuestion() {
     if (!(this.questionNr <= this.max)) {
       this.lastQuestion = true;
+      window.alert("You completed the quiz!");
     }
   }
 
