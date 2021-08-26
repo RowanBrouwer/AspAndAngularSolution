@@ -8,11 +8,13 @@
         </div>
         <div class="correct" *ngIf="correct === true">
           <h1>Correct!</h1>
-          <button (click)="GetNextQuestion()">Next Question</button>
+          <h1 *ngIf="lastQuestion">Completed the quiz</h1>
+          <button (click)="GetNextQuestion()" *ngIf="!lastQuestion">Next Question</button>
         </div>
-        <div class="inCorrect" *ngIf="correct === false">
-          <h1>inCorrect!</h1>
-          <button (click)="GetNextQuestion()">Next Question</button>
+        <div class="Incorrect" *ngIf="correct === false">
+          <h1>Incorrect!</h1>
+          <h1 *ngIf="lastQuestion">Completed the quiz</h1>
+          <button (click)="GetNextQuestion()" *ngIf="!lastQuestion">Next Question</button>
         </div>
       </div>
     </div>

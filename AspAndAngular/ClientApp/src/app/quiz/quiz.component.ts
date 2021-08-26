@@ -32,17 +32,12 @@ export class QuizComponent {
     }, error => console.error(error));
   }
 
-  GetNextQuestion(): void {
-    if (this.question.id <= this.max) {
+  GetNextQuestion(): void { 
     this.correct = null;
     this.http.get<Question>(`${this.baseUrl}api/Question/GetNextQuestion/Id`, { params: new HttpParams().set('Id', this.questionNr.toString()) }).subscribe(data => {
       this.question = data, console.log(data);
     }, error => console.error(error));
       this.deactivate = false;
-    }
-    else {
-      this.lastQuestion = true;
-    }
   }
 
   CheckAwnser(awnser: Awnser) {
@@ -51,11 +46,19 @@ export class QuizComponent {
       this.correct = true;
       this.deactivate = true;
       this.questionNr++;
+      this.CheckIfLastQuestion();
     }
     else {
       this.correct = false;
       this.deactivate = true;
       this.questionNr++;
+      this.CheckIfLastQuestion();
+    }
+  }
+
+  CheckIfLastQuestion() {
+    if (!(this.questionNr <= this.max)) {
+      this.lastQuestion = true;
     }
   }
 
