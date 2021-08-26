@@ -1,18 +1,20 @@
 <html lang="en">
 <body>
-  <div>
-    <div class="questionCard" *ngIf="question">
-      <div class="questionText"> {{question.id}}: {{question.actualQuestion}}</div>
-      <div *ngFor="let awnser of question.answers">
-          <button (click)="CheckAwnser(awnser,  question.correctAwnser.id)"> {{awnser.actualAnswer}}</button>
-      </div>
-      <div class="correct" *ngIf="correct === true">
-        Correct!
-      </div>
-      <div class="inCorrect" *ngIf="correct === false">
-        inCorrect!
+    <div>
+      <div class="questionCard" *ngIf="question">
+        <div class="questionText"> {{question.id}}: {{question.actualQuestion}}</div>
+        <div *ngFor="let awnser of question.answers">
+          <button [disabled]="deactivate === true" (click)="CheckAwnser(awnser)"> {{awnser.actualAnswer}}</button>
+        </div>
+        <div class="correct" *ngIf="correct === true">
+          <h1>Correct!</h1>
+          <button (click)="GetNextQuestion()">Next Question</button>
+        </div>
+        <div class="inCorrect" *ngIf="correct === false">
+          <h1>inCorrect!</h1>
+          <button (click)="GetNextQuestion()">Next Question</button>
+        </div>
       </div>
     </div>
-  </div>
 </body>
 </html>

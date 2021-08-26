@@ -902,7 +902,7 @@ namespace AspAndAngular.Infrastructure.EntityFrameworkCore
                 db.Answers.AddRange(AnswersOfQ45);
 
                 question45.Answers = AnswersOfQ45;
-                question45.CorrectAnswer = AnswersOfQ45.FirstOrDefault(a => a.ActualAnswer == "Store the certificates in Azure Key Vault.");
+                question45.CorrectAnswer = AnswersOfQ45.FirstOrDefault(a => a.ActualAnswer == "This is not possible. These workloads need to be run on-premises.");
 
                 db.Add(question45);
 

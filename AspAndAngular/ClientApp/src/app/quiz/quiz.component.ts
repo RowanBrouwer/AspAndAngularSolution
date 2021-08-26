@@ -13,10 +13,12 @@ export class QuizComponent {
   private questionNr:number = 1;
   private baseUrl: string;
   public correct: boolean = null;
+  public deactivate: boolean = false;
   public lastQuestion: boolean = false;
+
   constructor(protected http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.baseUrl = baseUrl;
-  }
+    }
 
   GetMaximumQuestions() {
     return this.http.get<number>(this.baseUrl + 'api/Question/GetMaxQuestions').subscribe(result => {
@@ -31,14 +33,29 @@ export class QuizComponent {
   }
 
   GetNextQuestion(): void {
-    if (this.question.Id <= this.max) {
+    if (this.question.id <= this.max) {
     this.correct = null;
     this.http.get<Question>(`${this.baseUrl}api/Question/GetNextQuestion/Id`, { params: new HttpParams().set('Id', this.questionNr.toString()) }).subscribe(data => {
       this.question = data, console.log(data);
     }, error => console.error(error));
+      this.deactivate = false;
     }
     else {
       this.lastQuestion = true;
+    }
+  }
+
+  CheckAwnser(awnser: Awnser) {
+    console.log(awnser, this.question.correctAnswer);
+    if (awnser.id === this.question.correctAnswer.id) {
+      this.correct = true;
+      this.deactivate = true;
+      this.questionNr++;
+    }
+    else {
+      this.correct = false;
+      this.deactivate = true;
+      this.questionNr++;
     }
   }
 
@@ -46,22 +63,12 @@ export class QuizComponent {
     this.GetMaximumQuestions();
     this.GetFirstQuestion();
   }
-
-  CheckAwnser(awnser: Awnser, correctAwnser: number) {
-    console.log(awnser ,correctAwnser);
-    if (awnser.Id === correctAwnser) {
-      this.correct = true;
-    }
-    else {
-      this.correct = false;
-    }
-  }
 }
 
 
 export interface Awnser {
-  Id: Number;
-  ActualAwnser: String;
+  id: Number;
+  actualAwnser: String;
 };
 
 export enum ChapterEnum {
@@ -74,9 +81,9 @@ export enum ChapterEnum {
 };
 
 export interface Question {
-  Id: Number;
-  ActualQuestion: String;
-  Awnsers: Awnser[];
-  CorrectAwnser: Awnser;
-  Chapter: ChapterEnum;
+  id: Number;
+  actualQuestion: String;
+  awnsers: Awnser[];
+  correctAnswer: Awnser;
+  chapter: ChapterEnum;
 };
