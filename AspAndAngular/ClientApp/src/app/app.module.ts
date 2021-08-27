@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { ResultPageComponent } from './result-page/result-page.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { QuizComponent } from './quiz/quiz.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    QuizComponent
+    QuizComponent,
+    ResultPageComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,6 +31,7 @@ import { QuizComponent } from './quiz/quiz.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'quiz', component: QuizComponent },
+      { path: 'result', component: ResultPageComponent }
     ])
   ],
   providers: [],

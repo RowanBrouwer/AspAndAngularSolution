@@ -1,27 +1,36 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css']
 })
+
 /** Quiz component*/
 export class QuizComponent {
   public question: Question;
-  public max: number = 0;
-  private questionNr:number = 1;
+  public max: number;
+  private questionNr: number;
+  private amountCorrect: number;
   private baseUrl: string;
-  public correct: boolean = null;
-  public deactivate: boolean = false;
-  public lastQuestion: boolean = false;
+  public correct: boolean;
+  public deactivate: boolean;
+  public lastQuestion: boolean;
 
-  constructor(protected http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = baseUrl;
+    constructor(protected http: HttpClient, @Inject('BASE_URL') baseUrl: string, private router: Router) {
+      this.baseUrl = baseUrl;
+      this.questionNr = 1;
+      this.max = 0;
+      this.amountCorrect = 0;
+      this.correct = null;
+      this.deactivate = false;
+      this.lastQuestion = false;
     }
 
   GetMaximumQuestions() {
-    return this.http.get<number>(this.baseUrl + 'api/Question/GetMaxQuestions').subscribe(result => {
+    this.http.get<number>(this.baseUrl + 'api/Question/GetMaxQuestions').subscribe(result => {
       this.max = result;
     }, error => console.error(error));
   }
@@ -46,6 +55,7 @@ export class QuizComponent {
       this.deactivate = true;
       this.questionNr++;
       this.CheckIfLastQuestion();
+      this.amountCorrect++;
     }
     else {
       this.correct = false;
@@ -55,10 +65,19 @@ export class QuizComponent {
     }
   }
 
+  Redirect() {
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          "totalAmount": this.questionNr,
+          "amountCorrect": this.amountCorrect
+        }
+    };
+    this.router.navigate(['/result'], navigationExtras);
+  }
+
   CheckIfLastQuestion() {
     if (!(this.questionNr <= this.max)) {
       this.lastQuestion = true;
-      window.alert("You completed the quiz!");
     }
   }
 
