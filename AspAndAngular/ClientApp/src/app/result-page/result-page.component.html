@@ -1,7 +1,13 @@
 <html>
 <body>
-  <div class="resultCard" *ngIf="procentage">
-    You got : {{ procentage }} correct!
+  <div class="resultCard" *ngIf="procentageAsString">
+    You got : {{ procentageAsString }} correct!
+  </div>
+  <div class="goodResult" *ngIf="procentageAsNumber >= 65">
+    You have achieved a passing score!
+  </div>
+  <div class="badResult" *ngIf="procentageAsNumber < 65">
+    Learn some more.
   </div>
 </body>
 </html>

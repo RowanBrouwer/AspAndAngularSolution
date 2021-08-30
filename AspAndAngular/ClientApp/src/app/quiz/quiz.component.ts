@@ -51,17 +51,15 @@ export class QuizComponent {
 
   CheckAwnser(awnser: Awnser) {
     if (awnser.id === this.question.correctAnswer.id) {
+      this.amountCorrect++;
       this.correct = true;
       this.deactivate = true;
-      this.questionNr++;
       this.CheckIfLastQuestion();
-      this.amountCorrect++;
     }
     else {
       this.correct = false;
       this.deactivate = true;
-      this.questionNr++;
-      this.CheckIfLastQuestion();
+      this.CheckIfLastQuestion(); 
     }
   }
 
@@ -76,9 +74,12 @@ export class QuizComponent {
   }
 
   CheckIfLastQuestion() {
-    if (!(this.questionNr <= this.max)) {
+    if (!(this.questionNr < this.max)) {
       this.lastQuestion = true;
     }
+    else {
+      this.questionNr++;
+    }   
   }
 
   ngOnInit() {

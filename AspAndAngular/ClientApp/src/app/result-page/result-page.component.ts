@@ -10,7 +10,8 @@ import { ActivatedRoute } from "@angular/router";
 export class ResultPageComponent {
   public totalAmount: number;
   public amountcorrect: number;
-  public procentage: string;
+  public procentageAsString: string;
+  public procentageAsNumber: number;
 
   constructor(private route: ActivatedRoute) {
     this.route.queryParams.subscribe(params => {
@@ -20,8 +21,9 @@ export class ResultPageComponent {
   }
 
   ngOnInit() {
-    this.procentage = `${Number.parseFloat((this.amountcorrect / this.totalAmount * 100).toFixed(2))}` + '%';
+    this.procentageAsNumber = Number.parseFloat((this.amountcorrect / this.totalAmount * 100).toFixed(2));
+    this.procentageAsString = `${this.procentageAsNumber}` + "%";
     console.log(this.amountcorrect, "/", this.totalAmount)
-    console.log(this.procentage);
+    console.log(this.procentageAsString);
   }
 }
