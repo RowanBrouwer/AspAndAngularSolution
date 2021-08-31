@@ -1,23 +1,20 @@
-<html lang="en">
-<body>
-    <div>
-      <div class="questionCard" *ngIf="question">
-        <div class="questionText"> {{question.id}}: {{question.actualQuestion}}</div>
-        <div *ngFor="let awnser of question.answers">
-          <button class="anwserButton" [disabled]="deactivate === true" (click)="CheckAwnser(awnser)"> {{awnser.actualAnswer}}</button>
-        </div>
-        <div class="correct" *ngIf="correct === true">
-          <h1>Correct!</h1> 
-        </div>
-        <div class="Incorrect" *ngIf="correct === false">
-          <h1>Incorrect!</h1>
-        </div>
-        <div *ngIf="correct != null">
-          <button class="CompletedDialog" (click)="GetNextQuestion()" *ngIf="!lastQuestion">Next Question</button>
-          <h1 class="CompletedDialog" *ngIf="lastQuestion">Completed the quiz</h1>
-          <button class="CompletedDialog" *ngIf="lastQuestion" (click)="Redirect()">To results</button>
-        </div>
-      </div>
+<div>
+  <div class="questionCard" *ngIf="question">
+    <div class="questionText"> {{question.id}}: {{question.actualQuestion}}</div>
+    <div *ngFor="let awnser of question.answers">
+      <button class="anwserButton" [disabled]="deactivate === true" (click)="CheckAwnser(awnser)"> {{awnser.actualAnswer}}</button>
     </div>
-</body>
-</html>
+    <div class="correct" *ngIf="correct === true">
+      <h1>Correct!</h1>
+    </div>
+    <div class="Incorrect" *ngIf="correct === false">
+      <h1>Incorrect!</h1>
+    </div>
+    <div *ngIf="correct != null">
+      <button class="CompletedDialog" (click)="GetNextQuestion()" *ngIf="!lastQuestion">Next Question</button>
+      <h1 class="CompletedDialog" *ngIf="lastQuestion">Completed the quiz</h1>
+      <button class="CompletedDialog" *ngIf="lastQuestion" (click)="Redirect()">To results</button>
+    </div>
+  </div>
+</div>
+

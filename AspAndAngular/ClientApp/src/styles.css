@@ -1,5 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
+html,
+body {
+  margin: auto;
+  padding: 0;
+}
+
+/* include border and padding in element width and height */
+* {
+  box-sizing: border-box;
+}
+
+/* full-sized  container that fills up the page */
+div {
+  height: 100%;
+  width: 100%;
+  /* example padding, font-size, background, etc */
+  padding: 10px;
+  font-size: 20px;
+}
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;

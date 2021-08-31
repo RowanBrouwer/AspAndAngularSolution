@@ -1,4 +1,4 @@
-.resultCard, .badResult, .goodResult {
+.resultProcentage, .badResult, .goodResult .card {
   margin: auto;
   width: 100%;
   border: 3px solid black;
@@ -8,14 +8,20 @@
   text-decoration-style: double;
 }
 
-/*.resultCard {
+.resultProcentage {
+  background-color: white;
+}
 
-}*/
+.card {
+  background-color: dimgray;
+  padding: 20px;
+}
 
 .goodResult {
-    background-color:lawngreen;
+  background-color:lawngreen;
 }
 
 .badResult {
-    background-color:red;
+  background-color: red;
+  font-weight: bold;
 }

@@ -20,6 +20,10 @@ export class ResultPageComponent {
     });
   }
 
+  Redirect() {
+    window.location.href = "https://docs.microsoft.com/en-us/learn/paths/az-900-describe-cloud-concepts/";
+  }
+
   ngOnInit() {
     this.procentageAsNumber = Number.parseFloat((this.amountcorrect / this.totalAmount * 100).toFixed(2));
     this.procentageAsString = `${this.procentageAsNumber}` + "%";
