@@ -10,7 +10,6 @@
 .anwserButton {
   background-color: lightgray;
   text-decoration: solid;
-  display: inline-flex;
 }
 
 .CompletedDialog {
